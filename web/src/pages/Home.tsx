@@ -85,19 +85,19 @@ export default function Home() {
   return (
     <div className="space-y-8">
       {/* Wallet List */}
-      <div className="bg-white p-4 rounded-2xl shadow">
-        <div className="flex justify-between items-center mb-4">
+      <div className="p-4 bg-white shadow rounded-2xl">
+        <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold">Wallets</h2>
           <button 
             onClick={() => setShowCreateForm(true)} 
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
           >
             Create New Wallet
           </button>
         </div>
         
         {wallets.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {wallets.map(wallet => (
               <div 
                 key={wallet.id} 
@@ -109,7 +109,7 @@ export default function Home() {
                 }`}
               >
                 <div className="font-semibold">{wallet.name}</div>
-                <div className="text-sm text-gray-600 mt-1">Balance: {wallet.balance.toFixed(4)}</div>
+                <div className="mt-1 text-sm text-gray-600">Balance: ${wallet.balance.toFixed(4)}</div>
               </div>
             ))}
           </div>
@@ -120,8 +120,8 @@ export default function Home() {
 
       {/* Create Wallet Form */}
       {showCreateForm && (
-        <form onSubmit={onSetup} className="space-y-4 bg-white p-4 rounded-2xl shadow">
-          <div className="flex justify-between items-center">
+        <form onSubmit={onSetup} className="p-4 space-y-4 bg-white shadow rounded-2xl">
+          <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold">Create Wallet</h2>
             <button 
               type="button"
@@ -133,50 +133,50 @@ export default function Home() {
           </div>
           <div>
             <label className="block text-sm">Username</label>
-            <input className="border rounded p-2 w-full" value={name} onChange={e => setName(e.target.value)} required />
+            <input className="w-full p-2 border rounded" value={name} onChange={e => setName(e.target.value)} required />
           </div>
           <div>
             <label className="block text-sm">Initial Balance (optional)</label>
-            <input className="border rounded p-2 w-full" value={initialBalance} onChange={e => setInitialBalance(e.target.value)} placeholder="0.0000" />
+            <input className="w-full p-2 border rounded" value={initialBalance} onChange={e => setInitialBalance(e.target.value)} placeholder="$0.0000" />
           </div>
-          <button disabled={busy} className="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50">{busy ? 'Working…' : 'Submit'}</button>
+          <button disabled={busy} className="px-4 py-2 text-white bg-blue-600 rounded disabled:opacity-50">{busy ? 'Working…' : 'Submit'}</button>
         </form>
       )}
 
       {/* Selected Wallet Details and Transaction Form */}
       {selectedWalletId && (
         <div className="space-y-6">
-          <div className="bg-white p-4 rounded-2xl shadow">
-            <div className="flex justify-between items-start">
+          <div className="p-4 bg-white shadow rounded-2xl">
+            <div className="flex items-start justify-between">
               <div>
                 <h2 className="text-xl font-semibold">Selected Wallet</h2>
                 <div className="mt-2 text-gray-700">ID: <code>{selectedWalletId}</code></div>
                 <div className="mt-1">Name: <strong>{walletName}</strong></div>
-                <div className="mt-1">Balance: <strong>{balance?.toFixed(4)}</strong></div>
+                <div className="mt-1">Balance: <strong className={`${balance as number > 0 ? 'text-green-500' : 'text-red-500'}`}>${balance?.toFixed(4)}</strong></div>
               </div>
               <Link 
                 to="/transactions" 
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
               >
                 View Transactions
               </Link>
             </div>
           </div>
 
-          <form onSubmit={onTransact} className="space-y-4 bg-white p-4 rounded-2xl shadow">
+          <form onSubmit={onTransact} className="p-4 space-y-4 bg-white shadow rounded-2xl">
             <h3 className="text-lg font-semibold">New Transaction</h3>
             <div>
               <label className="block text-sm">Amount</label>
-              <input className="border rounded p-2 w-full" value={amount} onChange={e => setAmount(e.target.value)} placeholder="e.g. 10.1234" />
+              <input className="w-full p-2 border rounded" value={amount} onChange={e => setAmount(e.target.value)} placeholder="e.g. 10.1234" />
             </div>
             <div className="flex items-center gap-3">
               <Toggle checked={isCredit} onChange={setIsCredit} left="DEBIT" right="CREDIT" />
             </div>
             <div>
               <label className="block text-sm">Description</label>
-              <input className="border rounded p-2 w-full" value={desc} onChange={e => setDesc(e.target.value)} placeholder="Recharge" />
+              <input className="w-full p-2 border rounded" value={desc} onChange={e => setDesc(e.target.value)} placeholder="Recharge" />
             </div>
-            <button disabled={busy} className="bg-green-600 text-white px-4 py-2 rounded disabled:opacity-50">{busy ? 'Working…' : 'Submit'}</button>
+            <button disabled={busy} className="px-4 py-2 text-white bg-green-600 rounded disabled:opacity-50">{busy ? 'Working…' : 'Submit'}</button>
           </form>
         </div>
       )}
