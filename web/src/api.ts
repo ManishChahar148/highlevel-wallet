@@ -1,5 +1,5 @@
 // src/api.ts
-const API_BASE: string = (window as any).API_BASE || 'http://localhost:4000';
+const API_BASE = import.meta.env.VITE_API_BASE as any;
 
 export type Wallet = { id: string; balance: number; name: string; date: string };
 export type Tx = {
