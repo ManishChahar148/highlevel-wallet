@@ -1,4 +1,5 @@
-# HighLevel Wallet – Full Stack (https://high-level-wallet.netlify.app/)
+# HighLevel Wallet – Full Stack 
+## https://high-level-wallet.netlify.app/
 
 A digital wallet system with precise money handling, built with Node.js/TypeScript/MongoDB backend and React/Tailwind frontend. The system uses integer micro-units (×10000) for 4 decimal places precision, avoiding floating-point errors.
 
